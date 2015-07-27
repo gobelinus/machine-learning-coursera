@@ -87,13 +87,25 @@ num_iters = 400;
 
 % Init Theta and Run Gradient Descent 
 theta = zeros(3, 1);
-[theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+[theta, J2] = gradientDescentMulti(X, y, theta, alpha * 3, num_iters);
+
+theta = zeros(3, 1);
+[theta, J3] = gradientDescentMulti(X, y, theta, 0.1, num_iters);
+
+theta = zeros(3, 1);
+% [theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+[theta, J1] = gradientDescentMulti(X, y, theta, alpha, num_iters);
 
 % Plot the convergence graph
 figure;
-plot(1:numel(J_history), J_history, '-b', 'LineWidth', 2);
+% plot(1:numel(J_history), J_history, '-b', 'LineWidth', 2);
 xlabel('Number of iterations');
 ylabel('Cost J');
+
+plot(1:50, J1(1:50), 'b');
+hold on;
+plot(1:50, J2(1:50), 'r');
+plot(1:50, J3(1:50), 'k');
 
 % Display gradient descent's result
 fprintf('Theta computed from gradient descent: \n');
@@ -104,7 +116,13 @@ fprintf('\n');
 % ====================== YOUR CODE HERE ======================
 % Recall that the first column of X is all-ones. Thus, it does
 % not need to be normalized.
+house_size = 1650;
+no_of_bedrooms = 3;
 price = 0; % You should change this
+price = theta(1);
+price += theta(2) * (house_size - mu(1))/sigma(1);
+price += theta(3) * (no_of_bedrooms - mu(2))/sigma(2);
+
 
 
 % ============================================================
@@ -149,8 +167,10 @@ fprintf('\n');
 
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
+house_size = 1650;
+no_of_bedrooms = 3;
 price = 0; % You should change this
-
+price = theta(1) + theta(2) * house_size + theta(3) * no_of_bedrooms;
 
 % ============================================================
 

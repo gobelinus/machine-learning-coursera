@@ -26,13 +26,19 @@ sigma = zeros(1, size(X, 2));
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
 
+mu = mean(X);
 
+sigma = std(X);
 
+for i = 1:size(X, 2),
+    X_norm(:, i) = (X(:, i) .- mu(i)) / sigma(i);
+end;
 
+disp(X(1:10, :))
 
+fprintf('\n\n');
 
-
-
+disp(X_norm(1:10, :));
 
 % ============================================================
 
